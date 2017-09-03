@@ -13,16 +13,27 @@ app.listen(PORT, function () {
 })
 
 // handler receiving messages
-app.post('/', function (req, res) {
+app.post('/', function (req, res) {         // 當有人post request來的時候，就把他的body印出來
+    console.log(JSON.stringify(req.body, null, 2));    //  中間是要放那些字元要被replace調， 2是排版用的(2個tab)
+    // console.log(req.body);      // 如果用此，會發現有的只會呈現Object，要看就要用上面的方法JSON.stringify
+    
+    let replyToken = req.body.events[0].replyToken
+    let text = req.body.events[0].message.text
+    if (text){              // 若收到貼圖不處理(當然也可以寫)
+        sendMessage(replyToken, text)
+    }
+    res.send();    //可回傳空字串即可
+    
 })
 
 // generic function sending messages
+// 回傳訊息:
 function sendMessage(replyToken, text) {
     let body = {
-        replyToken,
+        replyToken: replyToken,  // 可以縮寫為replyToken (key value同的時候)
         messages: [{
             type: 'text',
-            text,
+            text: text,   // 可以縮寫為text，此即
         }],
     };
 
