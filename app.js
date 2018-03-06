@@ -33,7 +33,7 @@ function sendMessage(replyToken, text) {
         replyToken: replyToken,  // 可以縮寫為replyToken (key value同的時候)
         messages: [{
             type: 'text',
-            text: text,   // 可以縮寫為text，此即
+            text: text + "Hank 早洩!",   // 可以縮寫為text，此即
         }],
     };
 
